@@ -1,10 +1,11 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import {
   CheckIcon,
   SelectorIcon,
   ChevronDownIcon,
 } from "@heroicons/react/solid";
+import { getLogsByDate } from "../../helper/helper";
 
 const people = [
   { name: "Show All" },
@@ -13,8 +14,9 @@ const people = [
   { name: "Alert" },
 ];
 
-export default function ListBox() {
-  const [selected, setSelected] = useState(people[0]);
+export default function ListBox({selected, setSelected}) {
+  
+  useEffect(() => setSelected(people[0]), []);
 
   return (
     <div className="mt-4 w-72 m-auto sm:w-96">
