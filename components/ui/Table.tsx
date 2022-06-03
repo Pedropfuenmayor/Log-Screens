@@ -83,20 +83,27 @@ const activityAlertLogData: ActivityAlertLogType[] = [
   },
 ];
 
-export default function Table({selected}) {
+export default function Table({ selected }) {
   const [logsByDate, setLogsByDate] = useState({});
 
+  useEffect(() => {
+    if (selected.name === "Show All") {
+      setLogsByDate(getLogsByDate(activityAlertLogData));
+      return;
+    }
 
+    const filteredLogs = activityAlertLogData.filter(({ type }) => {
+      return type === selected.name;
+    });
 
-  useEffect(() => setLogsByDate(getLogsByDate(activityAlertLogData)), []);
+    setLogsByDate(getLogsByDate(filteredLogs));
+  }, [selected]);
 
   return (
     <div className="relative overflow-x-auto mt-8">
       {Object.keys(logsByDate).map((date, i) => (
         <div key={i}>
-          <h3 className="font-bold my-4 m-auto text-lg w-72 sm:w-96">
-            {date}
-          </h3>
+          <h3 className="font-bold my-4 m-auto text-lg w-72 sm:w-96">{date}</h3>
           <table className="w-72 text-[10px] text-left m-auto sm:text-sm sm:w-96">
             <tbody className="">
               {logsByDate[date].map((log, i) => (
