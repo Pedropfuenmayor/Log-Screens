@@ -7,12 +7,10 @@ import {
 } from "@heroicons/react/solid";
 
 const people = [
-  { name: "Show all" },
-  { name: "Arlene Mccoy" },
-  { name: "Devon Webb" },
-  { name: "Tom Cook" },
-  { name: "Tanya Fox" },
-  { name: "Hellen Schmidt" },
+  { name: "Show All" },
+  { name: "Notification" },
+  { name: "Warning" },
+  { name: "Alert" },
 ];
 
 export default function ListBox() {
@@ -42,7 +40,7 @@ export default function ListBox() {
                 <Listbox.Option
                   key={personIdx}
                   className={({ active }) =>
-                    `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                    `relative cursor-default text-sm select-none py-2 pl-10 pr-4 ${
                       active ? "bg-blue-100 text-blue-600" : "text-gray-900"
                     }`
                   }

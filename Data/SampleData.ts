@@ -2,34 +2,38 @@ import { LockClosedIcon, LockOpenIcon, SunIcon, MoonIcon, BellIcon} from "@heroi
 
 const activityAlertLogData = [
   {
-    date: "11.12.2021 - 13:42",
-    item: "Door - Front",
-    status: "Closed by you",
+    timestamp: "11.12.2021 - 13:42",
+    device: "Door - Front",
+    description: "Closed by you",
     icon: LockClosedIcon,
+    type: 'Notification'
   },
-  { date: "11.12.2021 - 13:42", item: "Main Lighting", status: "Off", icon: MoonIcon },
-  { date: "11.12.2021 - 13:42", item: "Main Lighting", status: "On", icon: SunIcon },
+  { timestamp: "11.12.2021 - 13:42", device: "Main Lighting", description: "Off", icon: MoonIcon, type: 'Notification' },
+  { timestamp: "11.12.2021 - 13:42", device: "Main Lighting", description: "On", icon: SunIcon, type: 'Notification' },
   {
-    date: "11.12.2021 - 13:42",
-    item: "Door - Front",
-    status: "Opened by you",
+    timestamp: "11.12.2021 - 13:42",
+    device: "Door - Front",
+    description: "Opened by you",
     icon: LockOpenIcon,
+    type: 'Notification'
   },
   {
-    date: "11.12.2021 - 13:42",
-    item: "Door - Front",
-    status: "Closed by you",
+    timestamp: "11.12.2021 - 13:42",
+    device: "Door - Front",
+    description: "Closed by you",
     icon: LockClosedIcon,
+    type: 'Notification'
   },
-  { date: "11.12.2021 - 13:42", item: "Main Lighting", status: "Off", icon: MoonIcon },
-  { date: "11.12.2021 - 13:42", item: "Main Lighting", status: "On", icon: SunIcon },
-  { date: "11.12.2021 - 13:42", item: "Main Lighting", status: "Off", icon: MoonIcon  },
-  { date: "11.12.2021 - 13:42", item: "Main Lighting", status: "On", icon: SunIcon },
+  { timestamp: "11.12.2021 - 13:42", device: "Main Lighting", description: "Off", icon: MoonIcon, type: 'Notification' },
+  { timestamp: "11.12.2021 - 13:42", device: "Main Lighting", description: "On", icon: SunIcon, type: 'Notification' },
+  { timestamp: "11.12.2021 - 13:42", device: "Main Lighting", description: "Off", icon: MoonIcon, type: 'Notification'  },
+  { timestamp: "11.12.2021 - 13:42", device: "Main Lighting", description: "On", icon: SunIcon, type: 'Notification' },
   {
-    date: "11.12.2021 - 13:42",
-    item: "Door - Front",
-    status: "Opened by you",
+    timestamp: "11.12.2021 - 13:42",
+    device: "Door - Front",
+    description: "Opened by you",
     icon: LockOpenIcon,
+    type: 'Notification',
   },
 ];
 

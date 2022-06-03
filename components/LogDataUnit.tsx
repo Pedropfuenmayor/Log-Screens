@@ -10,7 +10,7 @@ export default function LogDataUnit() {
       <form className="mt-4">
         <input
           className="block w-72 m-auto text-2xl p-0.5 rounded-md bg-gray-100 mb-2  sm:w-96 placeholder:text-sm"
-          placeholder="Search…"
+          placeholder=""
         ></input>
       </form>
       <h2 className="m-auto mt-4 text-[10px] text-gray-800 w-72 sm:w-96">
