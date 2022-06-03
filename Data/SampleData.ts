@@ -1,3 +1,4 @@
+import { ActivityAlertLogType } from "../models/models";
 import {
   LockClosedIcon,
   LockOpenIcon,
@@ -6,7 +7,7 @@ import {
   BellIcon,
 } from "@heroicons/react/outline";
 
-const activityAlertLogData = [
+const activityAlertLogData: ActivityAlertLogType[] = [
   {
     timestamp: "11.12.2021 - 13:42",
     device: "Door - Front",

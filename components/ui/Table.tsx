@@ -1,3 +1,4 @@
+
 import activityAlertLogData from "../../data/SampleData";
 
 export default function Table() {
