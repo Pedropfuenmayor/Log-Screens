@@ -1,7 +1,7 @@
 
    
 export type  ActivityAlertLogType= {
-    timestamp: string,
+    timestamp: number ,
     device: string,
     description: string,
     icon: any,
