@@ -3,6 +3,7 @@ import {
   getLogsByDate,
   formatDateLabel,
   formatLogsDate,
+  paginateLogs,
 } from "../../helper/helper";
 import { DateTime } from "luxon";
 import {
@@ -93,23 +94,158 @@ const activityAlertLogData: ActivityAlertLogType[] = [
     icon: LockOpenIcon,
     type: "Notification",
   },
+  {
+    timestamp: 1639392939,
+    device: "Main Lighting",
+    description: "Off",
+    icon: MoonIcon,
+    type: "Notification",
+  },
+  {
+    timestamp: 1639390359,
+    device: "Main Lighting",
+    description: "On",
+    icon: SunIcon,
+    type: "Notification",
+  },
+  {
+    timestamp: 1639387299,
+    device: "Temperature",
+    description: "Below 4°C",
+    icon: BellIcon,
+    type: "Warning",
+  },
+  {
+    timestamp: 1639308099,
+    device: "Door - Front",
+    description: "Closed by you",
+    icon: LockClosedIcon,
+    type: "Notification",
+  },
+  {
+    timestamp: 1639307739,
+    device: "Main Lighting",
+    description: "Off",
+    icon: MoonIcon,
+    type: "Notification",
+  },
+  {
+    timestamp: 1639305339,
+    device: "Main Lighting",
+    description: "On",
+    icon: SunIcon,
+    type: "Notification",
+  },
+  {
+    timestamp: 1639302339,
+    device: "Main Lighting",
+    description: "Off",
+    icon: MoonIcon,
+    type: "Notification",
+  },
+  {
+    timestamp: 1639182039,
+    device: "Emergency",
+    description: "Unit is on fire",
+    icon: FireIcon,
+    type: "Alert",
+  },
+  {
+    timestamp: 1639218039,
+    device: "Door - Front",
+    description: "Opened by you",
+    icon: LockOpenIcon,
+    type: "Notification",
+  },
+  {
+    timestamp: 1639392939,
+    device: "Main Lighting",
+    description: "Off",
+    icon: MoonIcon,
+    type: "Notification",
+  },
+  {
+    timestamp: 1639390359,
+    device: "Main Lighting",
+    description: "On",
+    icon: SunIcon,
+    type: "Notification",
+  },
+  {
+    timestamp: 1639387299,
+    device: "Temperature",
+    description: "Below 4°C",
+    icon: BellIcon,
+    type: "Warning",
+  },
+  {
+    timestamp: 1639308099,
+    device: "Door - Front",
+    description: "Closed by you",
+    icon: LockClosedIcon,
+    type: "Notification",
+  },
+  {
+    timestamp: 1639307739,
+    device: "Main Lighting",
+    description: "Off",
+    icon: MoonIcon,
+    type: "Notification",
+  },
+  {
+    timestamp: 1639305339,
+    device: "Main Lighting",
+    description: "On",
+    icon: SunIcon,
+    type: "Notification",
+  },
+  {
+    timestamp: 1639302339,
+    device: "Main Lighting",
+    description: "Off",
+    icon: MoonIcon,
+    type: "Notification",
+  },
+  {
+    timestamp: 1639182039,
+    device: "Emergency",
+    description: "Unit is on fire",
+    icon: FireIcon,
+    type: "Alert",
+  },
+  {
+    timestamp: 1639218039,
+    device: "Door - Front",
+    description: "Opened by you",
+    icon: LockOpenIcon,
+    type: "Notification",
+  },
 ];
 
 export default function Table({ selected }) {
   const [logsByDate, setLogsByDate] = useState({});
+  const [initialLogs, setInitialLogs] = useState([]);
+
+  function increaseNumberOfLogs() {
+    setInitialLogs(paginateLogs(activityAlertLogData, 30));
+  }
+
+  useEffect(() => {
+    setInitialLogs(paginateLogs(activityAlertLogData, 20));
+  }, []);
 
   useEffect(() => {
     if (selected.name === "Show All") {
-      setLogsByDate(getLogsByDate(activityAlertLogData));
+      setLogsByDate(getLogsByDate(initialLogs));
       return;
     }
 
-    const filteredLogs = activityAlertLogData.filter(({ type }) => {
+    const filteredLogs = initialLogs.filter(({ type }) => {
       return type === selected.name;
     });
 
     setLogsByDate(getLogsByDate(filteredLogs));
-  }, [selected]);
+  }, [selected, initialLogs]);
 
   return (
     <div className="relative overflow-x-auto mt-8">
@@ -122,7 +258,7 @@ export default function Table({ selected }) {
             <tbody className="">
               {logsByDate[date].map((log, i) => (
                 <tr key={i} className="bg-white flex justify-between">
-                  <td className=" w-[89px] sm:w-[125px]">
+                  <td className=" w-[94px] sm:w-[125px]">
                     {formatLogsDate(log.timestamp)}
                   </td>
                   <td className="w-[18px]">
@@ -136,6 +272,14 @@ export default function Table({ selected }) {
           </table>
         </div>
       ))}
+      <div className="m-auto w-72 sm:w-96 items-center mt-4">
+        <button
+          onClick={increaseNumberOfLogs}
+          className="bg-gray-900 text-white py-4 rounded-sm w-full text-center "
+        >
+          Load more data...
+        </button>
+      </div>
     </div>
   );
 }

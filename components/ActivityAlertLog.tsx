@@ -3,7 +3,7 @@ import LogDataUnit from "./LogDataUnit";
 
 export default function ActivityAlertLog() {
   return (
-    <div className='mt-10'>
+    <div className='my-10'>
       <BackBotton />
       <LogDataUnit />
     </div>

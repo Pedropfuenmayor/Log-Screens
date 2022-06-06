@@ -3,7 +3,9 @@ import ListBox from "./ui/ListBox";
 import Table from "./ui/Table";
 
 export default function LogDataUnit() {
-  const [selectedEntrieType, setSelectedEntrieType] = useState({ name: "Show All" });
+  const [selectedEntrieType, setSelectedEntrieType] = useState({
+    name: "Show All",
+  });
   return (
     <div className="w-11/12 mt-4 m-auto">
       <h1 className="font-bold m-auto text-lg w-72 sm:w-96">
@@ -18,7 +20,10 @@ export default function LogDataUnit() {
       <h2 className="m-auto mt-4 text-[10px] text-gray-800 w-72 sm:w-96">
         FILTER LOGGED EVENTS
       </h2>
-      <ListBox selected={selectedEntrieType} setSelected={setSelectedEntrieType}/>
+      <ListBox
+        selected={selectedEntrieType}
+        setSelected={setSelectedEntrieType}
+      />
       <Table selected={selectedEntrieType} />
     </div>
   );

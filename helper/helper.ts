@@ -38,3 +38,8 @@ export function formatLogsDate(timestamp) {
 
   return logsDate.toFormat("d'.'L'.'y' - 'T");
 }
+
+export function paginateLogs(initialLogs, logsAmount) {
+  return initialLogs.slice(0, logsAmount);
+}
+
