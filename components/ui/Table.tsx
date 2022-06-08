@@ -1,228 +1,16 @@
-import { ActivityAlertLogType } from "../../models/models";
+import activityAlertLogData from "../../data/data";
 import {
   getLogsByDate,
   formatDateLabel,
   formatLogsDate,
   paginateLogs,
+  filterLogsByType,
+  filterLogsBySearch,
 } from "../../helper/helper";
-import { DateTime } from "luxon";
-import {
-  LockClosedIcon,
-  LockOpenIcon,
-  SunIcon,
-  MoonIcon,
-  BellIcon,
-  FireIcon,
-} from "@heroicons/react/outline";
+
 import { useEffect, useState } from "react";
 
-const activityAlertLogData: ActivityAlertLogType[] = [
-  {
-    timestamp: DateTime.now().toSeconds(),
-    device: "Door - Front",
-    description: "Closed by you",
-    icon: LockClosedIcon,
-    type: "Notification",
-  },
-  {
-    timestamp: DateTime.now().minus({ days: 1 }).toSeconds(),
-    device: "Door - Front",
-    description: "Closed by you",
-    icon: LockClosedIcon,
-    type: "Notification",
-  },
-  {
-    timestamp: 1639392939,
-    device: "Main Lighting",
-    description: "Off",
-    icon: MoonIcon,
-    type: "Notification",
-  },
-  {
-    timestamp: 1639390359,
-    device: "Main Lighting",
-    description: "On",
-    icon: SunIcon,
-    type: "Notification",
-  },
-  {
-    timestamp: 1639387299,
-    device: "Temperature",
-    description: "Below 4°C",
-    icon: BellIcon,
-    type: "Warning",
-  },
-  {
-    timestamp: 1639308099,
-    device: "Door - Front",
-    description: "Closed by you",
-    icon: LockClosedIcon,
-    type: "Notification",
-  },
-  {
-    timestamp: 1639307739,
-    device: "Main Lighting",
-    description: "Off",
-    icon: MoonIcon,
-    type: "Notification",
-  },
-  {
-    timestamp: 1639305339,
-    device: "Main Lighting",
-    description: "On",
-    icon: SunIcon,
-    type: "Notification",
-  },
-  {
-    timestamp: 1639302339,
-    device: "Main Lighting",
-    description: "Off",
-    icon: MoonIcon,
-    type: "Notification",
-  },
-  {
-    timestamp: 1639182039,
-    device: "Emergency",
-    description: "Unit is on fire",
-    icon: FireIcon,
-    type: "Alert",
-  },
-  {
-    timestamp: 1639218039,
-    device: "Door - Front",
-    description: "Opened by you",
-    icon: LockOpenIcon,
-    type: "Notification",
-  },
-  {
-    timestamp: 1639392939,
-    device: "Main Lighting",
-    description: "Off",
-    icon: MoonIcon,
-    type: "Notification",
-  },
-  {
-    timestamp: 1639390359,
-    device: "Main Lighting",
-    description: "On",
-    icon: SunIcon,
-    type: "Notification",
-  },
-  {
-    timestamp: 1639387299,
-    device: "Temperature",
-    description: "Below 4°C",
-    icon: BellIcon,
-    type: "Warning",
-  },
-  {
-    timestamp: 1639308099,
-    device: "Door - Front",
-    description: "Closed by you",
-    icon: LockClosedIcon,
-    type: "Notification",
-  },
-  {
-    timestamp: 1639307739,
-    device: "Main Lighting",
-    description: "Off",
-    icon: MoonIcon,
-    type: "Notification",
-  },
-  {
-    timestamp: 1639305339,
-    device: "Main Lighting",
-    description: "On",
-    icon: SunIcon,
-    type: "Notification",
-  },
-  {
-    timestamp: 1639302339,
-    device: "Main Lighting",
-    description: "Off",
-    icon: MoonIcon,
-    type: "Notification",
-  },
-  {
-    timestamp: 1639182039,
-    device: "Emergency",
-    description: "Unit is on fire",
-    icon: FireIcon,
-    type: "Alert",
-  },
-  {
-    timestamp: 1639218039,
-    device: "Door - Front",
-    description: "Opened by you",
-    icon: LockOpenIcon,
-    type: "Notification",
-  },
-  {
-    timestamp: 1639392939,
-    device: "Main Lighting",
-    description: "Off",
-    icon: MoonIcon,
-    type: "Notification",
-  },
-  {
-    timestamp: 1639390359,
-    device: "Main Lighting",
-    description: "On",
-    icon: SunIcon,
-    type: "Notification",
-  },
-  {
-    timestamp: 1639387299,
-    device: "Temperature",
-    description: "Below 4°C",
-    icon: BellIcon,
-    type: "Warning",
-  },
-  {
-    timestamp: 1639308099,
-    device: "Door - Front",
-    description: "Closed by you",
-    icon: LockClosedIcon,
-    type: "Notification",
-  },
-  {
-    timestamp: 1639307739,
-    device: "Main Lighting",
-    description: "Off",
-    icon: MoonIcon,
-    type: "Notification",
-  },
-  {
-    timestamp: 1639305339,
-    device: "Main Lighting",
-    description: "On",
-    icon: SunIcon,
-    type: "Notification",
-  },
-  {
-    timestamp: 1639302339,
-    device: "Main Lighting",
-    description: "Off",
-    icon: MoonIcon,
-    type: "Notification",
-  },
-  {
-    timestamp: 1639182039,
-    device: "Emergency",
-    description: "Unit is on fire",
-    icon: FireIcon,
-    type: "Alert",
-  },
-  {
-    timestamp: 1639218039,
-    device: "Door - Front",
-    description: "Opened by you",
-    icon: LockOpenIcon,
-    type: "Notification",
-  },
-];
-
-export default function Table({ selected }) {
+export default function Table({ selected, inputText }) {
   const [logsByDate, setLogsByDate] = useState({});
   const [initialLogs, setInitialLogs] = useState([]);
 
@@ -235,20 +23,14 @@ export default function Table({ selected }) {
   }, []);
 
   useEffect(() => {
-    if (selected.name === "Show All") {
-      setLogsByDate(getLogsByDate(initialLogs));
-      return;
-    }
+    const filteredLogsBytype = filterLogsByType(selected, initialLogs);
+    const filteredLogsBySearch = filterLogsBySearch(inputText,filteredLogsBytype)
 
-    const filteredLogs = initialLogs.filter(({ type }) => {
-      return type === selected.name;
-    });
-
-    setLogsByDate(getLogsByDate(filteredLogs));
-  }, [selected, initialLogs]);
+    setLogsByDate(getLogsByDate(filteredLogsBySearch));
+  }, [selected, initialLogs, inputText]);
 
   return (
-    <div className="relative overflow-x-auto mt-8">
+    <div className="relative overflow-x-auto mt-2">
       {Object.keys(logsByDate).map((date, i) => (
         <div key={i}>
           <h3 className="font-bold my-4 m-auto text-lg w-72 sm:w-96">

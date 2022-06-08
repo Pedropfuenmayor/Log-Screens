@@ -30,7 +30,7 @@ export function formatDateLabel(date, logsByDate) {
     return logsDate.toFormat("d'.'L'.'y', 'ccc'. Yesterday:'");
   }
 
-  return logsDate.toFormat("d'.'L'.'y");
+  return logsDate.toFormat("d'.'L'.'y', 'ccc'. :'");
 }
 
 export function formatLogsDate(timestamp) {
@@ -42,4 +42,28 @@ export function formatLogsDate(timestamp) {
 export function paginateLogs(initialLogs, logsAmount) {
   return initialLogs.slice(0, logsAmount);
 }
+export function filterLogsByType(entriesTypes, initialLogs: ActivityAlertLogType[]) {
+  if (entriesTypes.type === "Show All") {
+    return initialLogs;
+  } else {
+    const filteredLogs = initialLogs.filter(({ type }) => {
+      return type === entriesTypes.type;
+    });
+    return filteredLogs;
+  }
+}
 
+export function filterLogsBySearch(searchedText, logs: ActivityAlertLogType[]) {
+  const filteredLogsByDevice = logs.filter((log) => {
+    //if no input the return the original
+    if (searchedText === "") {
+      return log;
+    }
+    //return the item which contains the user input
+    else {
+      return log.device.toLowerCase().includes(searchedText);
+    }
+  });
+
+  return filteredLogsByDevice;
+}
