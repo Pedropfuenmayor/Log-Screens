@@ -6,7 +6,7 @@ import {
   paginateLogs,
   filterLogsByType,
   filterLogsBySearch,
-} from "../../helper/helper";
+} from "../../helper";
 
 import { useEffect, useState } from "react";
 

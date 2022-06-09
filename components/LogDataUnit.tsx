@@ -17,7 +17,9 @@ export default function LogDataUnit() {
 
   return (
     <div className="w-11/12 mt-4 m-auto">
-      <h2 className="font-bold text-lg m-auto w-72 sm:w-96 ">Log Data of Unit 1</h2>
+      <h2 className="font-bold text-lg m-auto w-72 sm:w-96 ">
+        Log Data of Unit 1
+      </h2>
       <SearchBar inputHandler={inputHandler} />
       <ListBox
         selected={selectedEntrieType}

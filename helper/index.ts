@@ -42,7 +42,10 @@ export function formatLogsDate(timestamp) {
 export function paginateLogs(initialLogs, logsAmount) {
   return initialLogs.slice(0, logsAmount);
 }
-export function filterLogsByType(entriesTypes, initialLogs: ActivityAlertLogType[]) {
+export function filterLogsByType(
+  entriesTypes,
+  initialLogs: ActivityAlertLogType[]
+) {
   if (entriesTypes.type === "Show All") {
     return initialLogs;
   } else {
@@ -53,17 +56,33 @@ export function filterLogsByType(entriesTypes, initialLogs: ActivityAlertLogType
   }
 }
 
+function addDateToLogs(logs: ActivityAlertLogType[], formatLogsDate) {
+  const formatedLogsWithDate = logs.map((log) => {
+    const date = formatLogsDate(log.timestamp);
+    return { ...log, date };
+  });
+
+  return formatedLogsWithDate;
+}
+
 export function filterLogsBySearch(searchedText, logs: ActivityAlertLogType[]) {
-  const filteredLogsByDevice = logs.filter((log) => {
+  const logsWithDate = addDateToLogs(logs, formatLogsDate);
+
+  const filteredLogsBySearch = logsWithDate.filter((log) => {
     //if no input the return the original
-    if (searchedText === "") {
+    if (searchedText.trim() === "") {
       return log;
     }
     //return the item which contains the user input
     else {
-      return log.device.toLowerCase().includes(searchedText);
+      const isSearched =
+        log.device.toLowerCase().includes(searchedText) ||
+        log.date.toLowerCase().includes(searchedText) ||
+        log.description.toLowerCase().includes(searchedText) ||
+        log.type.toLowerCase().includes(searchedText);
+      return isSearched;
     }
   });
 
-  return filteredLogsByDevice;
+  return filteredLogsBySearch;
 }
