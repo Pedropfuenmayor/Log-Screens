@@ -4,16 +4,17 @@ import {
   CheckIcon,
   ChevronDownIcon,
 } from "@heroicons/react/solid";
+import { ListBoxProps, LogTypeObj } from "../../models/models";
 
 
-const entriesType = [
+const entriesType: LogTypeObj[] = [
   { type: "Show All" },
   { type: "Notification" },
   { type: "Warning" },
   { type: "Alert" },
 ];
 
-export default function ListBox({ selected, setSelected }) {
+export default function ListBox({ selected, setSelected }: ListBoxProps) {
   
   return (
     <>

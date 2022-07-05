@@ -1,6 +1,9 @@
 import { SearchIcon } from "@heroicons/react/outline";
+import { SearchBarProps } from "../../models/models";
 
-export default function SearchBar({ inputHandler }) {
+export default function SearchBar({
+  inputHandler,
+}: SearchBarProps): JSX.Element {
   return (
     <div className="m-auto w-72 sm:w-96">
       <div className="relative block mt-4">

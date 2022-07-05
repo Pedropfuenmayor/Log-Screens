@@ -2,16 +2,17 @@ import { useState } from "react";
 import ListBox from "./ui/ListBox";
 import Table from "./ui/Table";
 import SearchBar from "./ui/SearchBar";
+import { LogTypeObj } from "../models/models";
 
 export default function LogDataUnit() {
-  const [selectedEntrieType, setSelectedEntrieType] = useState({
+  const [selectedEntrieType, setSelectedEntrieType] = useState<LogTypeObj>({
     type: "Show All",
   });
   const [inputText, setInputText] = useState("");
 
-  const inputHandler = (e) => {
+  const inputHandler = (e: React.FormEvent<HTMLInputElement>): void => {
     //convert input text to lower case
-    var lowerCase = e.target.value.toLowerCase();
+    const lowerCase = e.currentTarget.value.toLowerCase();
     setInputText(lowerCase);
   };
 
