@@ -1,11 +1,11 @@
-## Ivy Screens
+## Log Screen
 
-Take home challenge Pedro Fuenmayor
+Screen that render logs with search and filter functionality.
 
-Project page [https://ivy-screens.vercel.app/](https://ivy-screens.vercel.app/)
+Project page [https://log-screen.vercel.app/](https://log-screen.vercel.app/)
 
 ## ⚙️ Tech stack
 
-React | Next.js | Tailwind | Headless UI      
+React | Next.js | Tailwind | Headless UI | Luxon     
 
 
