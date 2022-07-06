@@ -1,11 +1,17 @@
-import { ActivityAlertLogType } from "../models/models";
+import {
+  ActivityAlertLogType,
+  ActivityAlertLogWithDate,
+  FormatLogsDateFunction,
+  LogsByDateType,
+  LogTypeObj,
+} from "../models/models";
 import { DateTime } from "luxon";
 
-export function getLogsByDate(logs: ActivityAlertLogType[]) {
+export function getLogsByDate(logs: ActivityAlertLogType[]): LogsByDateType {
   const sortedLogs = logs.sort((a, b) => b.timestamp - a.timestamp);
   const logsByDate = {};
   sortedLogs.forEach((log) => {
-    const date = DateTime.fromSeconds(log.timestamp).toFormat("d'.'L'.'y");
+    const date = formatDateLabel(log.timestamp)
     if (logsByDate.hasOwnProperty(date)) {
       logsByDate[date].push(log);
     } else {
@@ -16,8 +22,9 @@ export function getLogsByDate(logs: ActivityAlertLogType[]) {
   return logsByDate;
 }
 
-export function formatDateLabel(date, logsByDate) {
-  const timestamp = logsByDate[date][0].timestamp;
+export function formatDateLabel(
+  timestamp:number
+): string {
   const today = DateTime.now();
   const logsDate = DateTime.fromSeconds(timestamp);
   const isToday = logsDate.hasSame(today, "day");
@@ -33,19 +40,22 @@ export function formatDateLabel(date, logsByDate) {
   return logsDate.toFormat("d'.'L'.'y', 'ccc'. :'");
 }
 
-export function formatLogsDate(timestamp) {
+export function formatLogsDate(timestamp: number): string {
   const logsDate = DateTime.fromSeconds(timestamp);
 
   return logsDate.toFormat("d'.'L'.'y' - 'T");
 }
 
-export function paginateLogs(initialLogs, logsAmount) {
+export function paginateLogs(
+  initialLogs: ActivityAlertLogType[],
+  logsAmount: number
+): ActivityAlertLogType[] {
   return initialLogs.slice(0, logsAmount);
 }
 export function filterLogsByType(
-  entriesTypes,
+  entriesTypes: LogTypeObj,
   initialLogs: ActivityAlertLogType[]
-) {
+): ActivityAlertLogType[] {
   if (entriesTypes.type === "Show All") {
     return initialLogs;
   } else {
@@ -56,7 +66,7 @@ export function filterLogsByType(
   }
 }
 
-function addDateToLogs(logs: ActivityAlertLogType[], formatLogsDate) {
+function addDateToLogs(logs: ActivityAlertLogType[],formatLogsDate: FormatLogsDateFunction): ActivityAlertLogWithDate[] {
   const formatedLogsWithDate = logs.map((log) => {
     const date = formatLogsDate(log.timestamp);
     return { ...log, date };
@@ -65,7 +75,10 @@ function addDateToLogs(logs: ActivityAlertLogType[], formatLogsDate) {
   return formatedLogsWithDate;
 }
 
-export function filterLogsBySearch(searchedText, logs: ActivityAlertLogType[]) {
+export function filterLogsBySearch(
+  searchedText: string,
+  logs: ActivityAlertLogType[]
+): ActivityAlertLogWithDate[] {
   const logsWithDate = addDateToLogs(logs, formatLogsDate);
 
   const filteredLogsBySearch = logsWithDate.filter((log) => {

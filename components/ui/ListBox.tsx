@@ -40,7 +40,7 @@ export default function ListBox({ selected, setSelected }: ListBoxProps) {
               leaveTo="opacity-0"
             >
               <Listbox.Options className="absolute mt-1 max-h-60 w-full z-10 overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                {entriesType.map((entrieType, i) => (
+                {entriesType.map((entrieType: LogTypeObj, i) => (
                   <Listbox.Option
                     key={i}
                     className={({ active }) =>
