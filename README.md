@@ -6,6 +6,6 @@ Project page [https://log-screen.vercel.app/](https://log-screen.vercel.app/)
 
 ## ⚙️ Tech stack
 
-React | Next.js | Tailwind | Headless UI | Luxon | Jest | React Testing Library
+React | Next.js | Tailwind | Headless UI | Luxon | Jest | React Testing Library | Cypress
 
 
